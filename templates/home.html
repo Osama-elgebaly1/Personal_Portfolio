@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Osama Elgebaly - Portfolio</title>
+
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Portfolio of Osama Elgebaly - Backend Developer specialized in Python and Django." />
+  <meta name="author" content="Osama Elgebaly" />
+  <meta property="og:title" content="Osama Elgebaly - Backend Developer" />
+  <meta property="og:description" content="Clean, efficient web apps using Python and Django." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Fonts and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: #00fff0;
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00fff0;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* Override projects section max-width for full width */
+    #projects {
+      max-width: none;
+      padding: 60px 40px;
+    }
+
+    #hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+
+    .hero-name {
+      font-size: 48px;
+      color: #00fff0;
+      margin-bottom: 10px;
+    }
+
+    .hero-role {
+      font-size: 24px;
+      color: #ccc;
+      height: 30px;
+      margin-bottom: 20px;
+      min-height: 30px;
+    }
+
+    .hero-description {
+      font-size: 18px;
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      margin-top: 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #00fff0;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #00c9c2;
+    }
+
+    /* Projects stacked full width */
+    .project {
+      background: #1a1a1a;
+      padding: 20px;
+      margin: 15px auto;
+      border-radius: 10px;
+      max-width: 900px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 255, 240, 0.4);
+    }
+
+    .project a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #00fff0;
+      text-decoration: none;
+      border: 1px solid #00fff0;
+      padding: 6px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .project a:hover {
+      background: #00fff0;
+      color: #000;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 30px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .skill i {
+      font-size: 40px;
+      color: #00bfb3;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .skill:hover i {
+      transform: scale(1.2);
+      color: #00fff0;
+    }
+
+    .skill span {
+      display: block;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #aaa;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .skill:hover span {
+      transform: scale(1.2);
+      color: #00fff0;
+    }
+
+    /* Contact Form */
+
+    /* Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      background-color: #222;
+      color: #fff;
+      font-size: 16px;
+      transition: border 0.3s, background-color 0.3s;
+    }
+
+    /* Input focus styling */
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border: 2px solid #00fff0;
+      background-color: #111;
+      color: #fff;
+    }
+
+    .contact-form button {
+      background: #00fff0;
+      color: #000;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #00c9c2;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      color: #00fff0;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #fff;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      color: #00fff0;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      background: #0a0a0a;
+      font-size: 14px;
+      margin-top: 60px;
+    }
+    .alert {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid #c3e6cb;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Osama Elgebaly</h1>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h1 class="hero-name" data-aos="fade-up">Osama Elgebaly</h1>
+    <h2 class="hero-role"><span id="typed-role"></span></h2>
+    <p class="hero-description" data-aos="fade-up" data-aos-delay="400">
+      {{bio.bio}}
+    </p>
+    <button class="btn-primary" data-aos="fade-up" data-aos-delay="800"
+      onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">
+      Get in Touch
+    </button>
+  </section>
+
+  <section id="projects" class="projects" data-aos="fade-up">
+    <h2>Projects</h2>
+    <div>
+      {% for project in projects %}
+            <div class="project">
+              <h3>{{project.name}}</h3>
+              <p>{{project.short_description}}</p>
+              <a href="{% url "project_details" project.id %} " target="_blank" rel="noopener noreferrer">Learn More</a>
+              {% if project.github_repo_link %}
+                <a href="{{ project.github_repo_link }}" target="_blank" rel="noopener noreferrer" class="github-btn" title="View GitHub Repo" style="margin-left: 10px;">
+                <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="vertical-align: middle;">
+                  <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.55 7.55 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+              </a>
+              {% endif %}
+            {% if project.live_link %}
+              <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="demo-btn" title="Live Demo" style="margin-left: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;">
+                  <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm1.017 0a6.983 6.983 0 0 0 1.292 4.01h2.468a13.3 13.3 0 0 1-.159-4.01H1.017zm0-1h3.601a12.4 12.4 0 0 1 .159-4.01H2.309A6.983 6.983 0 0 0 1.017 7zM5.6 7h4.8a11.6 11.6 0 0 0-.195-4.01H5.795A11.6 11.6 0 0 0 5.6 7zm0 1a11.6 11.6 0 0 0 .195 4.01h4.41A11.6 11.6 0 0 0 10.4 8H5.6zm5.642 4.01h2.468A6.983 6.983 0 0 0 14.983 8h-3.601c.07 1.37.028 2.732-.14 4.01zM11.241 7h3.742a6.983 6.983 0 0 0-1.292-4.01h-2.468c.127 1.278.18 2.64.018 4.01z"/>
+                </svg>
+              </a>
+          {% endif %}
+          </div>
+      {% endfor %}
+
+
+    </div>
+  </section>
+
+  <section id="skills" class="skills" data-aos="fade-up">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      {% for skill in skills %}
+      <div class="skill" aria-label="Python">
+          <i class="{{skill.icon}}" aria-hidden="true"></i>
+          <span>{{skill.name}}</span>
+      </div>
+      
+      {% endfor %}
+
+
+    </div>
+  </section>
+
+  <section id="contact" class="contact" data-aos="fade-up">
+    <h2>Contact Me</h2>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    <form class="contact-form" action="{% url "send message" %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+      <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
+      <textarea name="message" rows="5" placeholder="Your Message" required aria-label="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="social-icons" aria-label="Social media links">
+      {% for icon in icons %}
+        <a href="{{icon.link}}" target="_blank" rel="noopener noreferrer">
+        <i class="{{icon.icon}}"></i>
+      </a>
+      {% endfor %}
+
+
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Osama Elgebaly. All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init();
+
+      const roles = [
+          {% for title in titles %}
+              "{{ title.title }}"{% if not forloop.last %},{% endif %}
+          {% endfor %}
+      ];
+      let i = 0, j = 0, currentText = '', isDeleting = false;
+      const typedRole = document.getElementById('typed-role');
+
+      function type() {
+        if (!typedRole) return;
+        const fullText = roles[i];
+        if (isDeleting) {
+          currentText = fullText.substring(0, j--);
+        } else {
+          currentText = fullText.substring(0, j++);
+        }
+        typedRole.textContent = currentText;
+
+        if (!isDeleting && j === fullText.length + 1) {
+          isDeleting = true;
+          setTimeout(type, 1500);
+        } else if (isDeleting && j === 0) {
+          isDeleting = false;
+          i = (i + 1) % roles.length;
+          setTimeout(type, 500);
+        } else {
+          setTimeout(type, isDeleting ? 50 : 100);
+        }
+      }
+
+      type();
+    });
+  </script>
+</body>
+</html>
