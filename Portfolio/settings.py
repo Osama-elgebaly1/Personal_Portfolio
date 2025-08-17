@@ -29,21 +29,20 @@ load_dotenv()
 
 
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-
+SECRET_KEY = 'django-insecure-@@ohnys4_dnzk+(uajlxl*0685h&#xmsy(24!mtv^p9&5aelhj'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL")  
-EMAIL_HOST_PASSWORD = os.getenv("APP_PASSWORD")  
+EMAIL_HOST_USER = 'osamaelgebaly122@gmail.com'
+EMAIL_HOST_PASSWORD = 'jraf rgvf oauh zewj'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Application definition
@@ -69,6 +68,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Portfolio.urls'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 
 TEMPLATES = [
     {

@@ -3,7 +3,35 @@ from django.db import models
 # Create your models here.
 
 
-# Need a signal to send email when contact 
+class JourneyCard(models.Model):
+    start_date = models.CharField(max_length=100)
+    end_date = models.CharField(max_length=100)
+    title = models.CharField(max_length=255)
+    content = models.TextField(blank=True, null=True)
+    direction = models.CharField(max_length=50, choices=[('left', 'Left'), ('right', 'Right')], default='left')
+
+    def __str__(self):
+        return f'{self.title} ({self.start_date} - {self.end_date})'
+
+
+
+class Content(models.Model):
+    card = models.ForeignKey(JourneyCard, on_delete=models.CASCADE, related_name='contents')
+    content = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.card.title} - {self.content}'
+
+
+# Need a signal to send email when contact
+
+class Service(models.Model):
+    icon = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 
 class Project(models.Model):

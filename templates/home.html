@@ -49,11 +49,19 @@
       align-items: center;
     }
 
+    /* Your existing header title */
     header h1 {
       font-size: 24px;
       color: #00fff0;
     }
 
+    /* Nav container for desktop */
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Nav links style */
     nav a {
       color: #fff;
       margin-left: 20px;
@@ -65,17 +73,54 @@
       color: #00fff0;
     }
 
+    /* Hamburger button - hidden on desktop */
+    #nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #00fff0;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      /* Show hamburger button */
+      #nav-toggle {
+        display: block;
+      }
+
+      /* Hide nav links by default on mobile */
+      nav #nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px; /* below the header */
+        right: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 8px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 10px rgba(0, 255, 240, 0.3);
+      }
+
+      /* Show nav when active */
+      nav #nav-links.active {
+        display: flex;
+      }
+
+      /* Nav links stacked vertically on mobile */
+      nav a {
+        margin: 10px 0 0 0;
+      }
+    }
+
     section {
       padding: 60px 20px;
       max-width: 1000px;
       margin: auto;
     }
 
-    /* Override projects section max-width for full width */
-    #projects {
-      max-width: none;
-      padding: 60px 40px;
-    }
+
 
     #hero {
       text-align: center;
@@ -184,7 +229,108 @@
       color: #00fff0;
     }
 
-    /* Contact Form */
+
+
+
+        /* Experience Timeline */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background-color: #00fff0;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #0f0f0f;
+      border: 4px solid #00fff0;
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+
+      .left {
+        left: 0;
+      }
+
+      .right {
+        left: 50%;
+      }
+
+      .left::after {
+        right: -10px;
+      }
+
+      .right::after {
+        left: -10px;
+      }
+    .timeline-content {
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s; /* Add transition */
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px); /* Same as project cards */
+      box-shadow: 0 5px 15px rgba(0, 255, 240, 0.4); /* Same teal glow */
+    }
+
+      .timeline-date {
+        color: #00fff0;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .timeline-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .timeline::before {
+          left: 31px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .timeline-item::after {
+          left: 21px;
+        }
+
+        .left::after, .right::after {
+          left: 21px;
+        }
+
+        .right {
+          left: 0;
+        }
+      }
 
     /* Contact Form */
     .contact-form {
@@ -285,17 +431,38 @@
       margin-bottom: 16px;
       font-weight: 500;
     }
+    #services > h2{
+      margin-bottom: 15px;
+    }
+
+    #services > div > div {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  #services > div > div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 240, 0.4);
+    z-index: 10;
+  }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Osama Elgebaly</h1>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+    <header>
+      <h1>Osama Elgebaly</h1>
+      <nav>
+        <button id="nav-toggle" aria-label="Toggle navigation">
+          &#9776; <!-- hamburger icon -->
+        </button>
+        <div id="nav-links">
+          <a href="#services">Services</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
 
   <section id="hero">
     <h1 class="hero-name" data-aos="fade-up">Osama Elgebaly</h1>
@@ -309,8 +476,30 @@
     </button>
   </section>
 
+
+
+
+
+
+
+<section id="services" class="projects" data-aos="fade-up">
+  <h2>Services</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+    {% for service in services %}
+    <div data-aos="fade-up" data-aos-delay="100" style="flex: 1 1 250px; background: #1a1a1a; padding: 20px; border-radius: 10px; text-align: center;">
+      <i class="{{ service.icon }}" style="font-size: 40px; color: #00bfb3;"></i>
+      <h3 style="margin: 15px 0;">{{ service.name }}</h3>
+      <p style="color: #aaa;">{{ service.description }}</p>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+
+
   <section id="projects" class="projects" data-aos="fade-up">
-    <h2>Projects</h2>
+      <h2>Projects</h2>
     <div>
       {% for project in projects %}
             <div class="project">
@@ -338,7 +527,35 @@
     </div>
   </section>
 
-  <section id="skills" class="skills" data-aos="fade-up">
+
+
+
+  <!--  My jouney Section - Disabled for now -->
+
+
+<!--  <section id="experience">-->
+<!--  <h2 data-aos="fade-up">My Journey</h2>-->
+<!--  <div class="timeline">-->
+
+<!--    </div>-->
+<!--    {% for card in journeycards %}-->
+<!--    <div class="timeline-item {{card.direction}}" data-aos="fade-right">-->
+<!--      <div class="timeline-content">-->
+<!--        <div class="timeline-date">{{card.start_date}} - {{card.end_date}}</div>-->
+<!--        <h3 class="timeline-title">{{card.title}}</h3>-->
+<!--        <ul>-->
+<!--          {% for content in card.contents.all %}-->
+<!--            <li>{{ content.content }}</li>-->
+<!--          {% endfor %}-->
+<!--        </ul>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+<!--  </div>-->
+<!--</section>-->
+
+  <section id= "skills" class="projects" data-aos="fade-up">
     <h2>Skills</h2>
     <div class="skills-grid">
       {% for skill in skills %}
@@ -346,14 +563,14 @@
           <i class="{{skill.icon}}" aria-hidden="true"></i>
           <span>{{skill.name}}</span>
       </div>
-      
+
       {% endfor %}
 
 
     </div>
   </section>
 
-  <section id="contact" class="contact" data-aos="fade-up">
+  <section id=  "contact" class="projects" data-aos="fade-up">
     <h2>Contact Me</h2>
       {% if messages %}
         {% for message in messages %}
@@ -422,5 +639,16 @@
       type();
     });
   </script>
+  <script>
+      const toggleButton = document.getElementById('nav-toggle');
+      const navLinks = document.getElementById('nav-links');
+
+      toggleButton.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    </script>
+
+
+
 </body>
 </html>

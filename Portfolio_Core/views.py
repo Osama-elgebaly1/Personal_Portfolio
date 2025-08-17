@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.core.mail import send_mail
 from django.contrib import messages
+from Portfolio import settings
 
 # Create your views here.
 
@@ -17,29 +18,32 @@ def project_details(request,pk):
                                           'videos':videos})
 
 
+
 def send_message(request):
     if request.method == 'POST':
-        sender = request.POST['name']
-        email = request.POST['email']
-        message = request.POST['message']
+        sender = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        message = request.POST.get('message', '')
 
-        send_mail(
-            subject= F'A work email from {sender} on Portfolio ',
+        # Save to DB
+        Contact.objects.create(
+            name=sender,
+            email=email,
             message=message,
-            from_email=email,
+        )
+
+        # Send email
+        send_mail(
+            subject=f"A work email from {sender} ({email}) on Portfolio",
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=['osamaelgebaly122@gmail.com'],
             fail_silently=False,
-            html_message=None,
         )
-        contact = Contact.objects.create(
-            name = sender,
-            email = email,
-            message = message,
-        )
-        messages.success(request,'Your email is sent :)')
+
+        messages.success(request, 'Your email has been sent :)')
         return redirect('home')
 
-        
 
 
 
@@ -51,14 +55,18 @@ def home(request):
     projects = Project.objects.all()
     skills = Skill.objects.all()
     icons = ContactIcon.objects.all()
+    services = Service.objects.all()
+    journeycards = JourneyCard.objects.prefetch_related('contents').all().order_by('-id')
+
 
     return render(request,'home.html',{
-
+        'journeycards':journeycards,
         'titles':titles,
         'bio':bio,
         'projects':projects,
         'skills':skills,
-        'icons':icons
+        'icons':icons,
+        'services':services,
 
     })
 
